@@ -5,9 +5,10 @@
 
 struct fallingPoop
 {
-  fallingPoop( sf::Vector2f vector_2, sf::Angle angle );
+  fallingPoop( sf::Vector2f vector_2, sf::Angle angle, bool dir );
   sf::Vector2f pos;
-  sf::Angle rot;
+  sf::Angle    rot;
+  bool         rotate_dir;
 };
 
 class clicker

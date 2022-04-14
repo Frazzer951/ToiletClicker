@@ -5,4 +5,4 @@
 #include "clicker.h"
 int  clicker::getTotalClicks() const { return totalClicks; }
 void clicker::click() { totalClicks++; }
-fallingPoop::fallingPoop( sf::Vector2f pos, sf::Angle angle ) : pos( pos ), rot( angle ) {}
+fallingPoop::fallingPoop( sf::Vector2f pos, sf::Angle angle, bool dir ) : pos( pos ), rot( angle ), rotate_dir( dir ) {}

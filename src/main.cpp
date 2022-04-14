@@ -55,7 +55,7 @@ int main()
   sf::Clock clickClock;
 
   std::vector<fallingPoop> fallingPoops;
-  int                      max_num_falling = 100;
+  int                      max_num_falling = 100000;
   float                    rotation_rate   = 100;
   float                    fall_rate       = 100;
 
@@ -78,9 +78,10 @@ int main()
         for( int i = 0; i < cps; i++ )
         {
           float     x     = rand() % WIDTH;
-          float     y     = -60.0f + ( rand() % 40 );
+          float     y     = -60.0f - ( rand() % 120 );
+          bool      dir   = rand() % 2;
           sf::Angle angle = sf::degrees( rand() % 360 );
-          fallingPoops.emplace_back( sf::Vector2f( x, y ), angle );
+          fallingPoops.emplace_back( sf::Vector2f( x, y ), angle, dir );
         }
       }
     }
@@ -99,6 +100,9 @@ int main()
       }
     }
 
+    //c.click();
+    //currentClicks++;
+
     int                total_clicks = c.getTotalClicks();
     std::ostringstream out;
     out.precision( 1 );
@@ -114,8 +118,9 @@ int main()
     window.clear( sf::Color::Black );
     for( fallingPoop & poop : fallingPoops )
     {
+      int dir = poop.rotate_dir ? 1 : -1;
       poop.pos.y += fall_rate * elapsedTime;
-      poop.rot = sf::degrees( poop.rot.asDegrees() + ( rotation_rate * elapsedTime ) );
+      poop.rot = sf::degrees( poop.rot.asDegrees() + ( rotation_rate * elapsedTime * dir ) );
       poopSprite.setPosition( poop.pos );
       poopSprite.setRotation( poop.rot );
       window.draw( poopSprite );
